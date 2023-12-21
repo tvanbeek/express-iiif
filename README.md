@@ -21,7 +21,7 @@ const app: Express = express();
 app.use(
   "/iiif",
   iiif({
-    imageDir: "./images", // Path to the directory containing the images
+    imageDir: "./images",
   })
 );
 
@@ -30,7 +30,7 @@ app.listen(3000, () => {
 });
 ```
 
-In the previous example the following URLs are available:
+With this example the following URLs become available:
 
 - `http://localhost:3000/iiif/my-image.jpg/info.json`,
 - `http://localhost:3000/iiif/my-image.jpg/full/max/0/default.jpg`.
@@ -39,15 +39,15 @@ In the previous example the following URLs are available:
 
 The following options can be passed to the middleware:
 
-| Option      | Type     | Description                                                          |
-| ----------- | -------- | -------------------------------------------------------------------- |
-| `baseUrl`   | `string` | The base URL of the IIIF server. Defaults to the URL of the request. |
-| `imageDir`  | `string` | The path to the directory containing the images.                     |
-| `maxWidth`  | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `maxHeight` | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `maxArea`   | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `quality`   | `string` | https://iiif.io/api/image/3.0/#43-quality                            |
-| `rights`    | `string` | https://iiif.io/api/image/3.0/#56-rights                             |
+| Option      | Required | Type     | Description                                                          |
+| ----------- | -------- | -------- | -------------------------------------------------------------------- |
+| `imageDir`  | Yes      | `string` | The path to the directory containing the images.                     |
+| `baseUrl`   | No       | `string` | The base URL of the IIIF server. Defaults to the URL of the request. |
+| `maxWidth`  | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
+| `maxHeight` | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
+| `maxArea`   | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
+| `quality`   | No       | `string` | https://iiif.io/api/image/3.0/#43-quality                            |
+| `rights`    | No       | `string` | https://iiif.io/api/image/3.0/#56-rights                             |
 
 ## License
 
