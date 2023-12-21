@@ -30,10 +30,15 @@ app.listen(3000, () => {
 });
 ```
 
-With the example these URLs become available:
+These URLs become available:
 
 - http://localhost:3000/iiif/my-image.jpg/info.json
 - http://localhost:3000/iiif/my-image.jpg/full/max/0/default.jpg
+- http://localhost:3000/iiif/my-image.jpg/square/300,300/90/gray.gif
+
+For an overview of all available transformations and explaination of the Image Request URI Syntax, vist the [Image API 3.0](https://iiif.io/api/image/3.0/) specification.
+
+For an example application with [OpenSeadragon](https://openseadragon.github.io/) viewer, visit the [GitHub Repository](https://github.com/tvanbeek/express-iiif/tree/main/examples) examples folder.
 
 ## Options
 
