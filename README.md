@@ -1,6 +1,6 @@
 # express-iiif
 
-express-iiif is [Express.js](https://expressjs.com/) [middleware](https://expressjs.com/en/guide/using-middleware.html) to provide your application with a [IIIF](https://iiif.io/) server, written in TypeScript, and compatible with [Image API 3.0](https://iiif.io/api/image/3.0/).
+express-iiif is [middleware](https://expressjs.com/en/guide/using-middleware.html) for [Express.js](https://expressjs.com/) to run an [Image API 3.0](https://iiif.io/api/image/3.0/) compatible [IIIF](https://iiif.io/) server.
 
 ## Installation
 
@@ -10,13 +10,13 @@ npm install express-iiif
 
 ## Usage
 
-Add the middleware to your Express.js application, and provide the path to the directory containing your images.
+Add the middleware to any [Express.js](https://expressjs.com/) application and provide the path to the directory containing your images.
 
-```typescript
-import express, { Express } from "express";
+```javascript
+import express from "express";
 import iiif from "express-iiif";
 
-const app: Express = express();
+const app = express();
 
 app.use(
   "/iiif",
@@ -26,18 +26,16 @@ app.use(
 );
 
 app.listen(3000, () => {
-  console.log("⚡️[server]: Server is running at http://localhost:3000");
+  console.log("⚡️ Server is running at http://localhost:3000");
 });
 ```
 
-With this example the following URLs become available:
+With the example these URLs become available:
 
-- `http://localhost:3000/iiif/my-image.jpg/info.json`,
-- `http://localhost:3000/iiif/my-image.jpg/full/max/0/default.jpg`.
+- http://localhost:3000/iiif/my-image.jpg/info.json
+- http://localhost:3000/iiif/my-image.jpg/full/max/0/default.jpg
 
 ## Options
-
-The following options can be passed to the middleware:
 
 | Option      | Required | Type     | Description                                                          |
 | ----------- | -------- | -------- | -------------------------------------------------------------------- |
