@@ -1,0 +1,8 @@
+{
+  "watch": ["examples", "src"],
+  "ext": "ts",
+  "exec": "npx ts-node ./examples/index.ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

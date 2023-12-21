@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <title>OpenSeadragon | Frans Hals, The Lute Player, c. 1623. Musée du Louvre, Paris. </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
+</head>
+
+<body>
+    <div id="osd" style="width: 800px; height: 600px;"></div>
+    <script>
+        var viewer = OpenSeadragon({
+            id: "osd",
+            tileSources: "http://localhost:3000/iiif/hals.jpg/info.json",
+        });
+    </script>
+</body>
+
+</html>
