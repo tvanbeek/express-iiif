@@ -113,7 +113,7 @@ function iiif(config) {
                     if (region.square) {
                         if (metadata.width > metadata.height) {
                             source.extract({
-                                left: Math.round((metadata.width - metadata.height) / 2),
+                                left: Math.floor((metadata.width - metadata.height) / 2),
                                 top: 0,
                                 width: metadata.height,
                                 height: metadata.height,
@@ -122,7 +122,7 @@ function iiif(config) {
                         else {
                             source.extract({
                                 left: 0,
-                                top: Math.round((metadata.height - metadata.width) / 2),
+                                top: Math.floor((metadata.height - metadata.width) / 2),
                                 width: metadata.width,
                                 height: metadata.width,
                             });
@@ -130,10 +130,10 @@ function iiif(config) {
                     }
                     else if (region.pct) {
                         source.extract({
-                            left: Math.round((metadata.width * region.x) / 100),
-                            top: Math.round((metadata.height * region.y) / 100),
-                            width: Math.round((metadata.width * region.w) / 100),
-                            height: Math.round((metadata.height * region.h) / 100),
+                            left: Math.floor((metadata.width * region.x) / 100),
+                            top: Math.floor((metadata.height * region.y) / 100),
+                            width: Math.floor((metadata.width * region.w) / 100),
+                            height: Math.floor((metadata.height * region.h) / 100),
                         });
                     }
                     else if (typeof region.x === "number" &&
@@ -181,10 +181,27 @@ function iiif(config) {
                         size.maintainAspectRatio === false &&
                         size.w &&
                         size.h) {
-                        source.resize({
-                            width: (0, min_1.default)([size.w, info.width]),
-                            height: (0, min_1.default)([size.h, info.height]),
-                        });
+                        if (size.w < info.width && size.h < info.height) {
+                            source.resize({
+                                width: size.w,
+                                height: size.h,
+                                fit: "fill",
+                            });
+                        }
+                        else if (size.w > size.h) {
+                            source.resize({
+                                width: info.width,
+                                height: Math.floor(info.height * (size.h / size.w)),
+                                fit: "fill",
+                            });
+                        }
+                        else if (size.w < size.h) {
+                            source.resize({
+                                width: Math.floor(info.width * (size.w / size.h)),
+                                height: info.height,
+                                fit: "fill",
+                            });
+                        }
                     }
                     // ^w,h
                     if (size.upscale === true &&
