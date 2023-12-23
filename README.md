@@ -42,7 +42,7 @@ For an example application with [OpenSeadragon](https://openseadragon.github.io/
 
 ## Development
 
-Run the example application from the **/example** folder with `npm run dev` and browse to http://localhost:3000. To build javascript files from the **/src** to the **/dist** folder run `npm run build` or `npm run build:watch`.
+Run the example application from the **/examples** folder with `npm run dev` and browse to http://localhost:3000. To build javascript files from the **/src** to the **/dist** folder run `npm run build` or `npm run build:watch`.
 
 ## Options
 
