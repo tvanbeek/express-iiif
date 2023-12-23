@@ -1,7 +1,9 @@
+import cors from "cors";
 import express, { Express } from "express";
 import iiif from "./../";
 
 const app: Express = express();
+app.use(cors());
 
 app.use(
   "/iiif",
