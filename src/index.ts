@@ -26,9 +26,9 @@ export default function iiif(config: Config) {
     }
   });
 
-  router.get("/:identifier/info.json", async (req, res, next) => {
+  router.get("/*/info.json", async (req, res, next) => {
     try {
-      const identifier = Identifier.parse(req.params.identifier);
+      const identifier = Identifier.parse(req.params[0]);
       const source = sharp(path.join(config.imageDir, identifier));
       const metadata = await source.metadata();
 
@@ -57,10 +57,10 @@ export default function iiif(config: Config) {
   });
 
   router.get(
-    "/:identifier/:region/:size/:rotation/:quality.:format",
+    "/*/:region/:size/:rotation/:quality.:format",
     async (req, res, next) => {
       try {
-        const identifier = Identifier.parse(req.params.identifier);
+        const identifier = Identifier.parse(req.params[0]);
         const region = Region.parse(req.params.region);
         const size = Size.parse(req.params.size);
         const rotation = Rotation.parse(req.params.rotation);

@@ -59,13 +59,13 @@ function iiif(config) {
             next(error);
         }
     });
-    router.get("/:identifier/info.json", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+    router.get("/*/info.json", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
         var identifier, source, metadata, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    identifier = request_1.Identifier.parse(req.params.identifier);
+                    identifier = request_1.Identifier.parse(req.params[0]);
                     source = (0, sharp_1.default)(path_1.default.join(config.imageDir, identifier));
                     return [4 /*yield*/, source.metadata()];
                 case 1:
@@ -93,13 +93,13 @@ function iiif(config) {
             }
         });
     }); });
-    router.get("/:identifier/:region/:size/:rotation/:quality.:format", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
+    router.get("/*/:region/:size/:rotation/:quality.:format", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
         var identifier, region, size, rotation, quality, format, source, metadata, info, _a, data, info_1, document_1, page, pdfImage, _b, _c, _d, _e, _f, _g, error_2;
         return __generator(this, function (_h) {
             switch (_h.label) {
                 case 0:
                     _h.trys.push([0, 10, , 11]);
-                    identifier = request_1.Identifier.parse(req.params.identifier);
+                    identifier = request_1.Identifier.parse(req.params[0]);
                     region = request_1.Region.parse(req.params.region);
                     size = request_1.Size.parse(req.params.size);
                     rotation = request_1.Rotation.parse(req.params.rotation);
