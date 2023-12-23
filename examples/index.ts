@@ -13,7 +13,7 @@ app.use(
 );
 
 app.use("/", (_req, res) => {
-  res.sendFile("./osd.html", { root: __dirname });
+  res.sendFile("./index.html", { root: __dirname });
 });
 
 app.listen(3000, () => {
