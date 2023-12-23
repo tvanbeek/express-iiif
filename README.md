@@ -40,17 +40,21 @@ For an overview of all available transformations and explaination of the Image R
 
 For an example application with [OpenSeadragon](https://openseadragon.github.io/) viewer, visit the [GitHub Repository](https://github.com/tvanbeek/express-iiif/tree/main/examples) examples folder.
 
+## Development
+
+Run the example application from the **/example** folder with `npm run dev` and browse to http://localhost:3000. To build javascript files from the **/src** to the **/dist** folder run `npm run build` or `npm run build:watch`.
+
 ## Options
 
-| Option      | Required | Type     | Description                                                          |
-| ----------- | -------- | -------- | -------------------------------------------------------------------- |
-| `imageDir`  | Yes      | `string` | The path to the directory containing the images.                     |
-| `baseUrl`   | No       | `string` | The base URL of the IIIF server. Defaults to the URL of the request. |
-| `maxWidth`  | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `maxHeight` | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `maxArea`   | No       | `number` | https://iiif.io/api/image/3.0/#42-size                               |
-| `quality`   | No       | `string` | https://iiif.io/api/image/3.0/#43-quality                            |
-| `rights`    | No       | `string` | https://iiif.io/api/image/3.0/#56-rights                             |
+| Option      | Required | Type     | Description                                      | Example                                                    |
+| ----------- | -------- | -------- | ------------------------------------------------ | ---------------------------------------------------------- |
+| `imageDir`  | Yes      | `string` | The path to the directory containing the images. | /images                                                    |
+| `baseUrl`   | No       | `string` | The absolute URL of the IIIF server.             | http://example.com/path/to/iiif                            |
+| `maxWidth`  | No       | `number` | https://iiif.io/api/image/3.0/#42-size           | 1000                                                       |
+| `maxHeight` | No       | `number` | https://iiif.io/api/image/3.0/#42-size           | 1000                                                       |
+| `maxArea`   | No       | `number` | https://iiif.io/api/image/3.0/#42-size           | 500000                                                     |
+| `quality`   | No       | `string` | https://iiif.io/api/image/3.0/#43-quality        | gray                                                       |
+| `rights`    | No       | `string` | https://iiif.io/api/image/3.0/#56-rights         | https://rightsstatements.org/page/InC-EDU/1.0/?language=en |
 
 ## License
 
