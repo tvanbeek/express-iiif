@@ -29,18 +29,27 @@ export default function iiif(config: Config) {
   router.get("/*/info.json", async (req, res, next) => {
     try {
       const identifier = Identifier.parse(req.params[0]);
-      const source = sharp(path.join(config.imageDir, identifier));
+      const source = sharp(path.resolve(config.imageDir, identifier));
       const metadata = await source.metadata();
+
+      console.log(
+        new URL(
+          path.join(req.baseUrl, identifier),
+          `${req.protocol}://${req.get("host")}`
+        ).toString()
+      );
 
       res.contentType(
         'application/ld+json;profile="http://iiif.io/api/image/3/context.json"'
       );
       res.json({
         "@context": "http://iiif.io/api/image/3/context.json",
-        id: new URL(
-          path.join(req.baseUrl, identifier),
-          config.baseUrl || `${req.protocol}://${req.get("host")}`
-        ).toString(),
+        id: config.baseUrl
+          ? path.join(config.baseUrl, identifier)
+          : new URL(
+              path.join(req.baseUrl, identifier),
+              `${req.protocol}://${req.get("host")}`
+            ).toString(),
         type: "ImageService3",
         protocol: "http://iiif.io/api/image",
         profile: "level2",
@@ -67,7 +76,7 @@ export default function iiif(config: Config) {
         const quality = Quality.parse(req.params.quality);
         const format = Format.parse(req.params.format);
 
-        const source = sharp(path.join(config.imageDir, identifier));
+        const source = sharp(path.resolve(config.imageDir, identifier));
         const metadata = await source.metadata();
 
         /** 1. Region: https://iiif.io/api/image/3.0/#41-region */

@@ -66,14 +66,17 @@ function iiif(config) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
                     identifier = request_1.Identifier.parse(req.params[0]);
-                    source = (0, sharp_1.default)(path_1.default.join(config.imageDir, identifier));
+                    source = (0, sharp_1.default)(path_1.default.resolve(config.imageDir, identifier));
                     return [4 /*yield*/, source.metadata()];
                 case 1:
                     metadata = _a.sent();
+                    console.log(new URL(path_1.default.join(req.baseUrl, identifier), "".concat(req.protocol, "://").concat(req.get("host"))).toString());
                     res.contentType('application/ld+json;profile="http://iiif.io/api/image/3/context.json"');
                     res.json({
                         "@context": "http://iiif.io/api/image/3/context.json",
-                        id: new URL(path_1.default.join(req.baseUrl, identifier), config.baseUrl || "".concat(req.protocol, "://").concat(req.get("host"))).toString(),
+                        id: config.baseUrl
+                            ? path_1.default.join(config.baseUrl, identifier)
+                            : new URL(path_1.default.join(req.baseUrl, identifier), "".concat(req.protocol, "://").concat(req.get("host"))).toString(),
                         type: "ImageService3",
                         protocol: "http://iiif.io/api/image",
                         profile: "level2",
@@ -105,7 +108,7 @@ function iiif(config) {
                     rotation = request_1.Rotation.parse(req.params.rotation);
                     quality = request_1.Quality.parse(req.params.quality);
                     format = request_1.Format.parse(req.params.format);
-                    source = (0, sharp_1.default)(path_1.default.join(config.imageDir, identifier));
+                    source = (0, sharp_1.default)(path_1.default.resolve(config.imageDir, identifier));
                     return [4 /*yield*/, source.metadata()];
                 case 1:
                     metadata = _h.sent();

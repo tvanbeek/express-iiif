@@ -8,7 +8,6 @@ app.use(cors());
 app.use(
   "/iiif",
   iiif({
-    baseUrl: "http://localhost:3000",
     imageDir: "./examples/images",
   })
 );
