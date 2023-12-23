@@ -77,7 +77,7 @@ exports.Size = zod_1.z.preprocess(function (size) {
     upscale: zod_1.z.boolean().default(false),
     maintainAspectRatio: zod_1.z.boolean().default(false),
     pct: zod_1.z.boolean().default(false),
-    n: zod_1.z.number().min(0).max(100).nullable().default(null),
+    n: zod_1.z.number().min(0).nullable().default(null),
     w: zod_1.z.number().min(0).nullable().default(null),
     h: zod_1.z.number().min(0).nullable().default(null),
 })
@@ -94,7 +94,7 @@ exports.Size = zod_1.z.preprocess(function (size) {
         return true;
     if (size.upscale && size.h !== null)
         return true;
-    if (size.pct && size.n !== null)
+    if (!size.upscale && size.pct && size.n <= 100 && size.n >= 0)
         return true;
     if (size.upscale && size.pct && size.n !== null)
         return true;

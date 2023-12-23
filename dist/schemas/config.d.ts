@@ -13,7 +13,7 @@ export declare const Config: z.ZodObject<{
     maxWidth?: number;
     maxHeight?: number;
     maxArea?: number;
-    quality?: "bitonal" | "color" | "gray";
+    quality?: "color" | "bitonal" | "gray";
     rights?: string;
 }, {
     baseUrl?: string;
@@ -21,7 +21,7 @@ export declare const Config: z.ZodObject<{
     maxWidth?: number;
     maxHeight?: number;
     maxArea?: number;
-    quality?: "bitonal" | "color" | "gray";
+    quality?: "color" | "bitonal" | "gray";
     rights?: string;
 }>;
 export type Config = z.infer<typeof Config>;

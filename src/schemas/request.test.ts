@@ -1,4 +1,4 @@
-import { Quality, Region, Rotation, Size, Format } from "./request";
+import { Format, Quality, Region, Rotation, Size } from "./request";
 
 test("Region", () => {
   expect(Region.parse("full")).toEqual({
@@ -120,14 +120,14 @@ test("Size", () => {
     h: null,
     n: 10,
   });
-  expect(Size.parse("^pct:10")).toEqual({
+  expect(Size.parse("^pct:200")).toEqual({
     max: false,
     upscale: true,
     maintainAspectRatio: false,
     pct: true,
     w: null,
     h: null,
-    n: 10,
+    n: 200,
   });
   expect(Size.parse("10,10")).toEqual({
     max: false,

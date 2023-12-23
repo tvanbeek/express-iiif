@@ -87,7 +87,7 @@ export const Size = z.preprocess(
       upscale: z.boolean().default(false),
       maintainAspectRatio: z.boolean().default(false),
       pct: z.boolean().default(false),
-      n: z.number().min(0).max(100).nullable().default(null),
+      n: z.number().min(0).nullable().default(null),
       w: z.number().min(0).nullable().default(null),
       h: z.number().min(0).nullable().default(null),
     })
@@ -98,7 +98,8 @@ export const Size = z.preprocess(
       if (size.upscale && size.w !== null) return true;
       if (size.h !== null) return true;
       if (size.upscale && size.h !== null) return true;
-      if (size.pct && size.n !== null) return true;
+      if (!size.upscale && size.pct && size.n <= 100 && size.n >= 0)
+        return true;
       if (size.upscale && size.pct && size.n !== null) return true;
       if (size.w !== null && size.h !== null) return true;
       if (size.upscale && size.w !== null && size.h !== null) return true;
