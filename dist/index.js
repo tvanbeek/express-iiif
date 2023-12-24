@@ -60,7 +60,7 @@ function iiif(config) {
         }
     });
     router.get("/*/info.json", function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-        var identifier, source, metadata, error_1;
+        var identifier, source, metadata, id, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -70,13 +70,14 @@ function iiif(config) {
                     return [4 /*yield*/, source.metadata()];
                 case 1:
                     metadata = _a.sent();
-                    console.log(new URL(path_1.default.join(req.baseUrl, identifier), "".concat(req.protocol, "://").concat(req.get("host"))).toString());
+                    id = config.baseUrl
+                        ? new URL(config.baseUrl)
+                        : new URL("".concat(req.protocol, "://").concat(req.get("host"), "/").concat(req.baseUrl));
+                    id.pathname = path_1.default.join(id.pathname, identifier);
                     res.contentType('application/ld+json;profile="http://iiif.io/api/image/3/context.json"');
                     res.json({
                         "@context": "http://iiif.io/api/image/3/context.json",
-                        id: config.baseUrl
-                            ? path_1.default.join(config.baseUrl, identifier)
-                            : new URL(path_1.default.join(req.baseUrl, identifier), "".concat(req.protocol, "://").concat(req.get("host"))).toString(),
+                        id: id,
                         type: "ImageService3",
                         protocol: "http://iiif.io/api/image",
                         profile: "level2",

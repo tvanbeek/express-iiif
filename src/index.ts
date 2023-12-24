@@ -32,24 +32,18 @@ export default function iiif(config: Config) {
       const source = sharp(path.resolve(config.imageDir, identifier));
       const metadata = await source.metadata();
 
-      console.log(
-        new URL(
-          path.join(req.baseUrl, identifier),
-          `${req.protocol}://${req.get("host")}`
-        ).toString()
-      );
+      const id = config.baseUrl
+        ? new URL(config.baseUrl)
+        : new URL(`${req.protocol}://${req.get("host")}/${req.baseUrl}`);
+
+      id.pathname = path.join(id.pathname, identifier);
 
       res.contentType(
         'application/ld+json;profile="http://iiif.io/api/image/3/context.json"'
       );
       res.json({
         "@context": "http://iiif.io/api/image/3/context.json",
-        id: config.baseUrl
-          ? path.join(config.baseUrl, identifier)
-          : new URL(
-              path.join(req.baseUrl, identifier),
-              `${req.protocol}://${req.get("host")}`
-            ).toString(),
+        id,
         type: "ImageService3",
         protocol: "http://iiif.io/api/image",
         profile: "level2",
