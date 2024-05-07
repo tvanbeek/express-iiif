@@ -8,45 +8,45 @@ export declare const Region: z.ZodEffects<z.ZodEffects<z.ZodObject<{
     w: z.ZodDefault<z.ZodNullable<z.ZodNumber>>;
     h: z.ZodDefault<z.ZodNullable<z.ZodNumber>>;
 }, "strip", z.ZodTypeAny, {
-    full?: boolean;
-    square?: boolean;
-    pct?: boolean;
     x?: number;
     y?: number;
     w?: number;
     h?: number;
+    full?: boolean;
+    square?: boolean;
+    pct?: boolean;
 }, {
-    full?: boolean;
-    square?: boolean;
-    pct?: boolean;
     x?: number;
     y?: number;
     w?: number;
     h?: number;
+    full?: boolean;
+    square?: boolean;
+    pct?: boolean;
 }>, {
-    full?: boolean;
-    square?: boolean;
-    pct?: boolean;
     x?: number;
     y?: number;
     w?: number;
     h?: number;
+    full?: boolean;
+    square?: boolean;
+    pct?: boolean;
 }, {
-    full?: boolean;
-    square?: boolean;
-    pct?: boolean;
     x?: number;
     y?: number;
     w?: number;
     h?: number;
+    full?: boolean;
+    square?: boolean;
+    pct?: boolean;
 }>, {
-    full?: boolean;
-    square?: boolean;
-    pct?: boolean;
     x?: number;
     y?: number;
     w?: number;
     h?: number;
+    full?: boolean;
+    square?: boolean;
+    pct?: boolean;
 }, unknown>;
 export declare const Size: z.ZodEffects<z.ZodEffects<z.ZodObject<{
     max: z.ZodDefault<z.ZodBoolean>;
@@ -57,45 +57,45 @@ export declare const Size: z.ZodEffects<z.ZodEffects<z.ZodObject<{
     w: z.ZodDefault<z.ZodNullable<z.ZodNumber>>;
     h: z.ZodDefault<z.ZodNullable<z.ZodNumber>>;
 }, "strip", z.ZodTypeAny, {
-    max?: boolean;
-    upscale?: boolean;
-    maintainAspectRatio?: boolean;
-    pct?: boolean;
     n?: number;
     w?: number;
     h?: number;
+    max?: boolean;
+    pct?: boolean;
+    upscale?: boolean;
+    maintainAspectRatio?: boolean;
 }, {
-    max?: boolean;
-    upscale?: boolean;
-    maintainAspectRatio?: boolean;
-    pct?: boolean;
     n?: number;
     w?: number;
     h?: number;
+    max?: boolean;
+    pct?: boolean;
+    upscale?: boolean;
+    maintainAspectRatio?: boolean;
 }>, {
-    max?: boolean;
-    upscale?: boolean;
-    maintainAspectRatio?: boolean;
-    pct?: boolean;
     n?: number;
     w?: number;
     h?: number;
+    max?: boolean;
+    pct?: boolean;
+    upscale?: boolean;
+    maintainAspectRatio?: boolean;
 }, {
-    max?: boolean;
-    upscale?: boolean;
-    maintainAspectRatio?: boolean;
-    pct?: boolean;
     n?: number;
     w?: number;
     h?: number;
+    max?: boolean;
+    pct?: boolean;
+    upscale?: boolean;
+    maintainAspectRatio?: boolean;
 }>, {
-    max?: boolean;
-    upscale?: boolean;
-    maintainAspectRatio?: boolean;
-    pct?: boolean;
     n?: number;
     w?: number;
     h?: number;
+    max?: boolean;
+    pct?: boolean;
+    upscale?: boolean;
+    maintainAspectRatio?: boolean;
 }, unknown>;
 export declare const Rotation: z.ZodEffects<z.ZodObject<{
     n: z.ZodDefault<z.ZodNumber>;

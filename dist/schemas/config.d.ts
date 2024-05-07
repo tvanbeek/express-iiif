@@ -8,20 +8,20 @@ export declare const Config: z.ZodObject<{
     quality: z.ZodOptional<z.ZodEnum<["bitonal", "color", "gray"]>>;
     rights: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
+    quality?: "bitonal" | "color" | "gray";
     baseUrl?: string;
     imageDir?: string;
     maxWidth?: number;
     maxHeight?: number;
     maxArea?: number;
-    quality?: "bitonal" | "color" | "gray";
     rights?: string;
 }, {
+    quality?: "bitonal" | "color" | "gray";
     baseUrl?: string;
     imageDir?: string;
     maxWidth?: number;
     maxHeight?: number;
     maxArea?: number;
-    quality?: "bitonal" | "color" | "gray";
     rights?: string;
 }>;
 export type Config = z.infer<typeof Config>;
