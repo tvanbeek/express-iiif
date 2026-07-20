@@ -88,8 +88,8 @@ export const Size = z.preprocess(
       maintainAspectRatio: z.boolean().default(false),
       pct: z.boolean().default(false),
       n: z.number().min(0).nullable().default(null),
-      w: z.number().min(0).nullable().default(null),
-      h: z.number().min(0).nullable().default(null),
+      w: z.number().min(1).nullable().default(null),
+      h: z.number().min(1).nullable().default(null),
     })
     .refine((size) => {
       if (size.max) return true;
