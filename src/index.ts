@@ -39,7 +39,7 @@ export default function iiif(config: Config) {
       id.pathname = path.join(id.pathname, identifier);
 
       res.contentType(
-        'application/ld+json;profile="http://iiif.io/api/image/3/context.json"'
+        'application/ld+json;profile="http://iiif.io/api/image/3/context.json"',
       );
       res.json({
         "@context": "http://iiif.io/api/image/3/context.json",
@@ -91,24 +91,42 @@ export default function iiif(config: Config) {
             });
           }
         } else if (region.pct) {
-          source.extract({
-            left: Math.floor((metadata.width * region.x) / 100),
-            top: Math.floor((metadata.height * region.y) / 100),
-            width: Math.floor((metadata.width * region.w) / 100),
-            height: Math.floor((metadata.height * region.h) / 100),
-          });
+          const left = Math.floor((metadata.width * region.x) / 100);
+          const top = Math.floor((metadata.height * region.y) / 100);
+
+          const width = Math.min(
+            Math.floor((metadata.width * region.w) / 100),
+            metadata.width - left,
+          );
+
+          const height = Math.min(
+            Math.floor((metadata.height * region.h) / 100),
+            metadata.height - top,
+          );
+
+          if (width <= 0 || height <= 0) {
+            res.status(400).send("Region is outside the bounds of the image.");
+            return;
+          }
+
+          source.extract({ left, top, width, height });
         } else if (
           typeof region.x === "number" &&
           typeof region.y === "number" &&
           typeof region.w === "number" &&
           typeof region.h === "number"
         ) {
-          source.extract({
-            left: region.x,
-            top: region.y,
-            width: region.w,
-            height: region.h,
-          });
+          const left = Math.min(region.x, metadata.width - 1);
+          const top = Math.min(region.y, metadata.height - 1);
+          const width = Math.min(region.w, metadata.width - left);
+          const height = Math.min(region.h, metadata.height - top);
+
+          if (width <= 0 || height <= 0) {
+            res.status(400).send("Region is outside the bounds of the image.");
+            return;
+          }
+
+          source.extract({ left, top, width, height });
         }
 
         /** 2. Size: https://iiif.io/api/image/3.0/#42-size */
@@ -116,10 +134,23 @@ export default function iiif(config: Config) {
 
         // max
         if (size.max === true && size.upscale === false) {
-          if (config.maxWidth < info.width || config.maxHeight < info.height) {
+          let width = config.maxWidth
+            ? min([info.width, config.maxWidth])
+            : info.width;
+          let height = config.maxHeight
+            ? min([info.height, config.maxHeight])
+            : info.height;
+
+          if (config.maxArea && width * height > config.maxArea) {
+            const scale = Math.sqrt(config.maxArea / (width * height));
+            width = Math.floor(width * scale);
+            height = Math.floor(height * scale);
+          }
+
+          if (width < info.width || height < info.height) {
             source.resize({
-              width: min([info.width, config.maxWidth]),
-              height: min([info.height, config.maxHeight]),
+              width,
+              height,
               fit: "inside",
             });
           }
@@ -136,12 +167,14 @@ export default function iiif(config: Config) {
 
         // ^pct:n
         if (size.upscale === true && size.pct) {
-          source.resize({ width: info.width * (size.n / 100) });
+          source.resize({ width: Math.round(info.width * (size.n / 100)) });
         }
 
         // pct:n
         if (size.upscale === false && size.pct) {
-          source.resize({ width: info.width * (min([size.n, 100]) / 100) });
+          source.resize({
+            width: Math.round(info.width * (min([size.n, 100]) / 100)),
+          });
         }
 
         // w,h
@@ -151,24 +184,19 @@ export default function iiif(config: Config) {
           size.w &&
           size.h
         ) {
-          if (size.w < info.width && size.h < info.height) {
+          if (size.w <= info.width && size.h <= info.height) {
             source.resize({
               width: size.w,
               height: size.h,
               fit: "fill",
             });
-          } else if (size.w > size.h) {
-            source.resize({
-              width: info.width,
-              height: Math.floor(info.height * (size.h / size.w)),
-              fit: "fill",
-            });
-          } else if (size.w < size.h) {
-            source.resize({
-              width: Math.floor(info.width * (size.w / size.h)),
-              height: info.height,
-              fit: "fill",
-            });
+          } else {
+            res
+              .status(400)
+              .send(
+                "Size parameters exceed region dimensions. Use ^w,h to upscale.",
+              );
+            return;
           }
         }
 
@@ -234,6 +262,8 @@ export default function iiif(config: Config) {
 
         /** 4. Quality: https://iiif.io/api/image/3.0/#quality */
         switch (quality) {
+          case "color":
+            break;
           case "gray":
             source.grayscale();
             break;
@@ -243,6 +273,7 @@ export default function iiif(config: Config) {
           case "default":
             if (config.quality === "gray") source.grayscale();
             if (config.quality === "bitonal") source.threshold();
+            break;
           default:
             break;
         }
@@ -300,7 +331,7 @@ export default function iiif(config: Config) {
       } catch (error) {
         next(error);
       }
-    }
+    },
   );
 
   return router;

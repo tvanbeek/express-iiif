@@ -78,8 +78,8 @@ exports.Size = zod_1.z.preprocess((size) => {
     maintainAspectRatio: zod_1.z.boolean().default(false),
     pct: zod_1.z.boolean().default(false),
     n: zod_1.z.number().min(0).nullable().default(null),
-    w: zod_1.z.number().min(0).nullable().default(null),
-    h: zod_1.z.number().min(0).nullable().default(null),
+    w: zod_1.z.number().min(1).nullable().default(null),
+    h: zod_1.z.number().min(1).nullable().default(null),
 })
     .refine((size) => {
     if (size.max)
