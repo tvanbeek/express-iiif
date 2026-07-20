@@ -166,6 +166,10 @@ test("Size", () => {
     n: null,
   });
   expect(() => Size.parse("pct:101")).toThrow();
+  expect(() => Size.parse("0,10")).toThrow();
+  expect(() => Size.parse("10,0")).toThrow();
+  expect(() => Size.parse("0,")).toThrow();
+  expect(() => Size.parse(",0")).toThrow();
 });
 
 test("Rotation", () => {
