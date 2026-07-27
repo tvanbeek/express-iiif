@@ -41,7 +41,7 @@
     "lodash": "^4.17.21",
     "pdf-lib": "^1.17.1",
     "sharp": "^0.33.3",
-    "zod": "^3.23.6"
+    "zod": "^4.4.3"
   },
   "allowScripts": {
     "fsevents@2.3.3": true,
