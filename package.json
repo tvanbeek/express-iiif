@@ -45,6 +45,6 @@
   },
   "allowScripts": {
     "fsevents@2.3.3": true,
-    "sharp@0.33.3": true
+    "sharp@0.33.5": true
   }
 }
